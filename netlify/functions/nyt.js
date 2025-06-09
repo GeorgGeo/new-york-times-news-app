@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 exports.handler = async function (event, context) {
-  const API_KEY = progress.env.NYT_API_KEY;
+  const API_KEY = process.env.NYT_API_KEY;
   const { section = 'home', query } = event.queryStringParameters;
 
   const baseUrl = 'https://api.nytimes.com/svc';
