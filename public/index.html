@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .popup-overlay {
+        position: fixed;
+        top: 3%;
+        right: 5%;
+        /* width: 100%; */
+        width: 90px;
+        /* height: 100%; */
+        height: 90px;
+        border-radius: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        opacity: 1;
+        /* display: none; скрыт по умолчанию */
+        animation: fadeIn 1.4s ease-out;
+        transition: all 1.4s ease;
+        pointer-events: auto;
+      }
+      .popup-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .popup {
+        width: 75px;
+        height: 75px;
+        background: transparent;
+        border-radius: 50%;
+        overflow: visible;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        position: relative;
+        /* animation: fadeIn 0.4s ease-out; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .popup-text-circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        margin-top: -75px;
+        margin-left: -75px;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 150px;
+        color: white;
+        font-weight: bold;
+        animation: rotateText 20s linear infinite;
+        white-space: nowrap;
+        pointer-events: none;
+        mask-image: radial-gradient(closest-side, black 100%, transparent 100%);
+      }
+      @keyframes rotateText {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      /* изображение */
+      .popup img {
+        /* width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: relative;
+        z-index: 1; */
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        z-index: 1;
+      }
+      .popup-svg-text {
+        position: absolute;
+        width: 111px;
+        height: 111px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      /* кнопка закрытия */
+    .popup-close {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      /* line-height: 25px; */
+      text-align: center;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      line-height: 1;
+    }
+
+    /* плавное появление */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.4); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    </style>
+  </head>
+  <body> 
+    <!-- Popup -->
+    <div class="popup-overlay" id="popup">
+      <div class="popup">
+        <img src="https://avatars.githubusercontent.com/u/82495882?v=4" alt="Person">
+        <!-- <div class="popup-text-circle">correspondent for The New York Times</div> -->
+        <svg viewBox="0 0 200 200" class="popup-svg-text">
+          <defs>
+            <path
+              id="circlePath"
+              d="M 100, 100
+                 m -75, 0
+                 a 75,75 0 1,1 150,0
+                 a 75,75 0 1,1 -150,0"
+            />
+          </defs>
+          <text font-size="12" fill="white" font-weight="bold">
+            <textPath xlink:href="#circlePath" startOffset="25%" text-anchor="middle" dy="-3">
+              correspondent for The New York Times
+            </textPath>
+          </text>
+        </svg>
+      </div>
+      <button class="popup-close">
+        <i class="material-icons" style="font-size:12px;">close</i>
+      </button>
+    </div>
+    <!--  -->
+    <nav class="blue lighten-2">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo scale-up-center-normal">Fresh Scope News</a>
+      </div>
+    </nav>
+    <div class="search-controls">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card">
+              <form name="newsControls">
+                <div class="card-content">
+                  <span class="card-title">Search news</span>
+                  <div class="input-field">
+                    <select name="category" id="category">
+                      <option value="home">Main News</option>
+                      <option value="world">World</option>
+                      <option value="us">United States</option>
+                      <option value="science">Science</option>
+                      <option value="technology">Technology</option>
+                      <option value="sports">Sports</option>
+                      <option value="realestate">Realestate</option>
+                      <option value="automobiles">Automobiles</option>
+                    </select>
+                    <label>Choose your category</label>
+                  </div>
+                  <div class="input-field">
+                    <input
+                      type="text"
+                      id="autocomplete-input"
+                      class="autocomplete"
+                      name="search"
+                    />
+                    <label for="autocomplete-input">Search</label>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <button
+                    class="btn waves-effect waves-light"
+                    type="submit"
+                    name="action"
+                  >
+                    Search
+                    <i class="material-icons right">search</i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="news-container">
+      <div class="container">
+        <div class="row grid-container"></div>
+      </div>
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../app.js"></script>
+    <script>
+      const btnPopup = document.querySelector('.popup-close');
+      const popup = document.querySelector('.popup-overlay');
+
+      btnPopup.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        popup.classList.add('hidden'); // скрыть
+        // popup.classList.remove('hidden'); // показать
+        // через 600ms (время transition), убираем элемент с потока
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 1400);
+      });
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 10000)
+    </script>
+  </body>
+</html>
